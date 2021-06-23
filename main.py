@@ -29,10 +29,10 @@ class IrisDataset:
         u = self.data[i]
         ans = []
 
-        for j, _ in range(len(self.data)):
+        for j in range(len(self.data)):
             if j != i:
                 ans.append(j)
-        ans.sort(key=lambda v: norm(v - u))
+        ans.sort(key=lambda j: norm(self.data[j] - u))
         return ans[:k]
 
     def precision(self, i: int, candidates: List[int]) -> float:
@@ -42,8 +42,11 @@ class IrisDataset:
 
 def main():
     iris = IrisDataset()
-    c = iris.bounded_nearest_neighbors(0, 0.4)
-    p = iris.precision(0, c)
+    c1 = iris.bounded_nearest_neighbors(82, 2)
+    c2 = iris.k_nearest_neighbors(82, 50)
+    p1 = iris.precision(82, c1)
+    p2 = iris.precision(82, c2)
+    print(c1, c2, p1, p2, sep='\n')
 
 
 if __name__ == '__main__':
